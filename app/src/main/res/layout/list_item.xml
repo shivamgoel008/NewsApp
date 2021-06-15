@@ -11,15 +11,18 @@
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:layout_margin="8dp"
+        android:layout_marginBottom="16dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:cardElevation="2dp"
-        app:cardCornerRadius="16dp">
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <ImageView
                 android:id="@+id/img"
                 android:layout_width="match_parent"
@@ -27,12 +30,13 @@
                 android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/shadow_bottom"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
+                android:src="@drawable/bottom_shadow"
                 app:layout_constraintBottom_toBottomOf="@+id/img"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -46,61 +50,68 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+
             <TextView
                 android:id="@+id/author"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
                 android:layout_marginBottom="16dp"
                 android:text="Author"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/shadow_bottom"
-                app:layout_constraintVertical_bias="0.42" />
+                app:layout_constraintVertical_bias="0.386" />
 
-            <TextView
-                android:id="@+id/publishAt"
+            <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="4dp"
-                android:layout_marginRight="4dp"
-                android:text="01 January 2021"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:background="@color/white"
+                android:elevation="2dp"
+                app:cardCornerRadius="20dp"
+                app:layout_constraintBottom_toBottomOf="@+id/img"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/shadow_bottom"
-                app:layout_constraintVertical_bias="0.378" />
+                app:layout_constraintStart_toEndOf="@+id/author">
+
+
+            </androidx.cardview.widget.CardView>
 
             <TextView
                 android:id="@+id/Desc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
                 android:text="Desc"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/author" />
+                app:layout_constraintTop_toBottomOf="@+id/news_title"
+                app:layout_constraintVertical_bias="0.188" />
 
             <TextView
                 android:id="@+id/source"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:layout_marginLeft="4dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
                 android:text="Source"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/author"
-                app:layout_constraintVertical_bias="0.865" />
+                app:layout_constraintTop_toBottomOf="@+id/Desc"
+                app:layout_constraintVertical_bias="0.333" />
 
             <TextView
                 android:id="@+id/news_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
                 android:text="Title"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/author"
-                app:layout_constraintVertical_bias="0.16" />
+                app:layout_constraintVertical_bias="0.162" />
 
             <TextView
                 android:id="@+id/time"
@@ -110,6 +121,18 @@
                 app:layout_constraintBottom_toBottomOf="@+id/source"
                 app:layout_constraintStart_toEndOf="@+id/source"
                 app:layout_constraintTop_toTopOf="@+id/source" />
+
+            <TextView
+                android:id="@+id/publishAt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:text="01 January 2021"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/shadow_bottom"
+                app:layout_constraintVertical_bias="0.347" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
