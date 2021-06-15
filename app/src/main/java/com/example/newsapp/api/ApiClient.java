@@ -44,8 +44,8 @@ public class ApiClient {
                         }
 
                         @Override
-                        public X509Certificate[] getAcceptedIssuers() {
-                            return new java.security.cert.X509Certificate[0];
+                        public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+                            return new java.security.cert.X509Certificate[]{};
                         }
                     }
             };

@@ -28,7 +28,7 @@ import java.util.List;
 
 import okhttp3.internal.Util;
 
-class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
+public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
 
     private List<Article>articles;
     private Context context;
@@ -59,6 +59,7 @@ class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
 
         Glide.with(context)
                 .load(model.getUrlToImage())
+                .apply(requestOptions)
                 .listener(new RequestListener<Drawable>() {
                     @Override
                     public boolean onLoadFailed(@Nullable  GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
@@ -78,8 +79,10 @@ class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
         holder.title.setText(model.getTitle());
         holder.desc.setText(model.getDescription());
         holder.source.setText(model.getSource().getName());
-        holder.time.setText(" \u2022 "+ Utils.DateToTimeFormat(model.getPublishAt()));
-        holder.publish.setText(Utils.DateFormat(model.getPublishAt()));
+//        holder.time.setText(" \u2022 "+ Utils.DateToTimeFormat(model.getPublishAt()));
+//        holder.publish.setText(Utils.DateFormat(model.getPublishAt()));
+        holder.time.setText(new StringBuilder().append(" \u2022 ").append(Utils.DateToTimeFormat(model.getPublishedAt())).toString());
+        holder.publish.setText(Utils.DateFormat(model.getPublishedAt()));
         holder.author.setText(model.getAuthor());
 
     }
@@ -110,9 +113,11 @@ class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
             title=itemView.findViewById(R.id.news_title);
             desc=itemView.findViewById(R.id.Desc);
             author=itemView.findViewById(R.id.author);
-            source=itemView.findViewById(R.id.source);
-            time=itemView.findViewById(R.id.time);
             publish=itemView.findViewById(R.id.publishAt);
+            source=itemView.findViewById(R.id.source);
+
+            time=itemView.findViewById(R.id.time);
+
             imageView=itemView.findViewById(R.id.img);
             progressBar=itemView.findViewById(R.id.progress_bar);
 

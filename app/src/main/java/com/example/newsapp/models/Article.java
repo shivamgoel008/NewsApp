@@ -29,7 +29,7 @@ public class Article {
     @Expose
     private String urlToImage;
 
-    @SerializedName("publishAt")
+    @SerializedName("publishedAt")
     @Expose
     private String publishAt;
 
@@ -81,11 +81,11 @@ public class Article {
         this.urlToImage = urlToImage;
     }
 
-    public String getPublishAt() {
+    public String getPublishedAt() {
         return publishAt;
     }
 
-    public void setPublishAt(String publishAt) {
+    public void setPublishedAt(String publishAt) {
         this.publishAt = publishAt;
     }
 }
