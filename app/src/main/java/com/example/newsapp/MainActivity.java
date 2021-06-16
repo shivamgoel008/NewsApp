@@ -6,6 +6,7 @@ import androidx.core.app.NavUtils;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.app.SearchManager;
 import android.content.Context;
@@ -28,7 +29,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener{
 
     public static final String API_KEY="f1ad34365e454e5eb92b048319ca5460";
     private RecyclerView recyclerView;
@@ -36,11 +37,16 @@ public class MainActivity extends AppCompatActivity {
     private List<Article> articles=new ArrayList<>();
     private Adapter adapter;
     private String TAG = MainActivity.class.getSimpleName();
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        swipeRefreshLayout=findViewById(R.id.refresh);
+        swipeRefreshLayout.setOnRefreshListener(this);
+        swipeRefreshLayout.setColorSchemeColors(R.color.colorAccent);
 
         recyclerView =findViewById(R.id.recyclerView);
         layoutManager=new LinearLayoutManager(MainActivity.this);
@@ -48,10 +54,12 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setNestedScrollingEnabled(false);
 
-        LoadJson("");
+        onLoadingSwipeRefresh("");
     }
 
     public  void LoadJson(final String keyword){
+
+        swipeRefreshLayout.setRefreshing(true);
         ApiInterface apiInterface= ApiClient.getApiClient().create(ApiInterface.class);
         String country = Utils.getCountry();
         String language=Utils.getLanguage();
@@ -76,7 +84,10 @@ public class MainActivity extends AppCompatActivity {
                     adapter= new Adapter(articles,MainActivity.this);
                     recyclerView.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
+
+                    swipeRefreshLayout.setRefreshing(false);
                 } else {
+                    swipeRefreshLayout.setRefreshing(false);
                     Toast.makeText(MainActivity.this, "No Result", Toast.LENGTH_LONG).show();
                 }
             }
@@ -104,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 if(query.length()>2){
-                    LoadJson(query);
+                    onLoadingSwipeRefresh(query);
                 }
                 return false;
             }
@@ -116,5 +127,21 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public void onRefresh() {
+        LoadJson("");
+    }
+
+    private void onLoadingSwipeRefresh(final String keyword){
+        swipeRefreshLayout.post(
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        LoadJson(keyword);
+                    }
+                }
+        );
     }
 }

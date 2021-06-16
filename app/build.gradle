@@ -51,4 +51,7 @@ dependencies {
 
 //Times Formater
     implementation 'org.ocpsoft.prettytime:prettytime:4.0.1.Final'
+
+//    for refresh layout
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
 }
