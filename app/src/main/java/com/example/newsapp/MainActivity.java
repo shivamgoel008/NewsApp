@@ -23,7 +23,6 @@ import com.example.newsapp.models.News;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.PrimitiveIterator;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -31,7 +30,7 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener{
 
-    public static final String API_KEY="f1ad34365e454e5eb92b048319ca5460";
+    public static final String API_KEY=BuildConfig.MY_API_KEY;
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private List<Article> articles=new ArrayList<>();
@@ -46,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
         swipeRefreshLayout=findViewById(R.id.refresh);
         swipeRefreshLayout.setOnRefreshListener(this);
-        swipeRefreshLayout.setColorSchemeColors(R.color.colorAccent);
+//        swipeRefreshLayout.setColorSchemeColors(R.color.colorAccent);
 
         recyclerView =findViewById(R.id.recyclerView);
         layoutManager=new LinearLayoutManager(MainActivity.this);
@@ -122,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                LoadJson(newText);
+//                LoadJson(newText);
                 return false;
             }
         });
