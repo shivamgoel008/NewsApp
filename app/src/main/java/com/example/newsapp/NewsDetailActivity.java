@@ -3,6 +3,7 @@ package com.example.newsapp;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebView;
@@ -13,6 +14,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 
@@ -51,6 +55,40 @@ public class NewsDetailActivity extends AppCompatActivity implements AppBarLayou
         date =findViewById(R.id.date);
         time=findViewById(R.id.time);
         title=findViewById(R.id.title);
+
+        Intent intent= getIntent();
+        mUrl=intent.getStringExtra("url");
+        mImg=intent.getStringExtra("img");
+        mTitle=intent.getStringExtra("title");
+        mDate=intent.getStringExtra("date");
+        mSource=intent.getStringExtra("source");
+        mAuthor=intent.getStringExtra("author");
+
+        RequestOptions requestOptions=new RequestOptions();
+        requestOptions.error(Utils.getRandomDrawbleColor());
+
+        Glide.with(this)
+                .load(mImg)
+                .apply(requestOptions)
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .into(imageView);
+
+        appbar_title.setText(mSource);
+        appbar_subtitle.setText(mUrl);
+        date.setText(Utils.DateFormat(mDate));
+        title.setText(mTitle);
+
+        String author ;
+
+        if(mAuthor!=null || mAuthor!= ""){
+            author =" \u2022 "+mAuthor;
+        } else {
+            author="";
+        }
+
+        time .setText(mSource+ author+" \u2022 " + Utils.DateToTimeFormat(mDate));
+        initWebView(mUrl);
+
     }
 
     private void initWebView(String url){
